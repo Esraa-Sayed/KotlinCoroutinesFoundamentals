@@ -1,5 +1,6 @@
 package com.esraa.kodecokotlincoroutinesfundamentals.di
 
+import com.esraa.kodecokotlincoroutinesfundamentals.BuildConfig
 import com.esraa.kodecokotlincoroutinesfundamentals.data.api.MovieAPIService
 import com.google.gson.Gson
 import okhttp3.OkHttpClient
@@ -9,7 +10,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 private const val BASE_URL = "https://api.themoviedb.org/"
-const val API_KEY = "insert-api-key-here"
+const val API_KEY = BuildConfig.API_KEY
 const val MOVIE_IMAGE_BASE_PATH = "https://image.tmdb.org/t/p/w500"
 fun networkingModule() = module {
     single {
