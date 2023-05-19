@@ -16,8 +16,7 @@ abstract class MovieDateBase:RoomDatabase() {
                 context,
                 MovieDateBase::class.java,
                 "movies"
-            ).allowMainThreadQueries()
-                .build()
+            ).build()
         }
     }
 

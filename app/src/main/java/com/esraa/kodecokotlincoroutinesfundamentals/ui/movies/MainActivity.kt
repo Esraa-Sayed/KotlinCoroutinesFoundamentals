@@ -28,7 +28,6 @@ class MainActivity : AppCompatActivity(),MoviesView {
         setContentView(binding.root)
         initUI()
         presenter.setView(this)
-        presenter.getData()
     }
 
     private fun initUI() {
@@ -51,5 +50,14 @@ class MainActivity : AppCompatActivity(),MoviesView {
         Toast.makeText(this,"Can't load data",Toast.LENGTH_LONG).show()
     }
 
+    override fun onStop() {
+        presenter.stop()
+        super.onStop()
+    }
+
+    override fun onStart() {
+        super.onStart()
+      presenter.getData()
+    }
 
 }
