@@ -1,13 +1,13 @@
 package com.esraa.kodecokotlincoroutinesfundamentals.ui.movies
 
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.esraa.kodecokotlincoroutinesfundamentals.Utils.logCoroutine
 import com.esraa.kodecokotlincoroutinesfundamentals.domain.repository.MovieRepo
 import kotlinx.coroutines.*
-import kotlin.coroutines.CoroutineContext
 
-class MoviePresenterImp(private val  movieRepo: MovieRepo):MoviePresenter,CoroutineScope {
+class MoviePresenterImp(private val  movieRepo: MovieRepo):ViewModel(), MoviePresenter {
     private lateinit var moviesView: MoviesView
-    private val parentJob = SupervisorJob()
     private val coroutineExceptionHandler = CoroutineExceptionHandler{ context, throwable ->
         throwable.stackTrace
     }
@@ -16,7 +16,7 @@ class MoviePresenterImp(private val  movieRepo: MovieRepo):MoviePresenter,Corout
     }
 
     override fun getData() {
-        launch {
+        viewModelScope.launch(coroutineExceptionHandler) {
         logCoroutine()
            val result = runCatching {  movieRepo.getMovies() }
             result.onSuccess {
@@ -27,11 +27,4 @@ class MoviePresenterImp(private val  movieRepo: MovieRepo):MoviePresenter,Corout
         }
 
     }
-
-    override fun stop() {
-        parentJob.cancelChildren()
-    }
-
-    override val coroutineContext: CoroutineContext
-        get() = Dispatchers.Main + parentJob + coroutineExceptionHandler
 }

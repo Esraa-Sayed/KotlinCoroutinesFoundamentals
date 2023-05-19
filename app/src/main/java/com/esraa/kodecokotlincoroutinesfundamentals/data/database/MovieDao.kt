@@ -9,8 +9,8 @@ import com.esraa.kodecokotlincoroutinesfundamentals.data.model.Movie
 @Dao
 interface MovieDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun saveMovies(movies: List<Movie>)
+    suspend fun saveMovies(movies: List<Movie>)
 
     @Query("SELECT * FROM movies")
-    fun getSavedMovies():List<Movie>
+    suspend fun getSavedMovies():List<Movie>
 }
